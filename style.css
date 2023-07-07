@@ -1,0 +1,45 @@
+body {
+    position: absolute;
+    inset: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#board {
+    position: relative;
+    display: grid;
+    border: 1px solid black;
+    padding: 2px;
+    box-shadow: 1px 1px 16px 1px grey;
+    grid-template-columns: repeat(var(--width), 1fr);
+    grid-template-rows: repeat(var(--height), 1fr);
+    gap: 1px;
+}
+  
+#board > div {
+    position: relative;
+    background-color: silver;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+}
+
+
+.checker {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    margin: auto;
+}
+  
+.player-1 {
+    background-color: red;
+}
+  
+.player-2 {
+    background-color: yellow;
+}
+  
