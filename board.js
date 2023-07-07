@@ -88,6 +88,8 @@ export class Board {
     }
 
     updateTurnIndicator() {
-        this.turnIndicator.textContent = `Player ${this.currentPlayer}'s turn`;
+        this.turnIndicator.textContent = `Player ${this.currentPlayer}'s Turn`;
+        this.turnIndicator.classList.remove("player-1", "player-2");
+        this.turnIndicator.classList.add(`player-${this.currentPlayer}`);
     }
 }
