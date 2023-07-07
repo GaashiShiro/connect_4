@@ -4,7 +4,9 @@ export class Board {
       this.height = height;
       this.tiles = Array(width * height).fill(0);
       this.elem = document.getElementById("board");
+      this.turnIndicator = document.getElementById("turn-indicator");
       this.currentPlayer = 1;
+      this.updateTurnIndicator();
     }
   
     draw() {
@@ -46,8 +48,9 @@ export class Board {
                 this.draw();
                 alert(`Player ${this.currentPlayer} wins!`);
                 this.reset(); // resets the board/game
-            } 
-            return this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+            }
+            this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+            return this.updateTurnIndicator();
             }
         }
     }
@@ -82,5 +85,9 @@ export class Board {
         this.tiles.fill(0);
         this.currentPlayer = 1;
         this.draw();
+    }
+
+    updateTurnIndicator() {
+        this.turnIndicator.textContent = `Player ${this.currentPlayer}'s turn`;
     }
 }
