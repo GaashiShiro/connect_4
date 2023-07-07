@@ -43,3 +43,6 @@ body {
     background-color: yellow;
 }
   
+#board .tile.highlight {
+    background-color: rgba(105, 228, 89, 0.719);
+}

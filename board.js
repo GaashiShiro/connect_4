@@ -20,7 +20,7 @@ export class Board {
                 tileElem.dataset.x = x;
                 tileElem.dataset.y = y;
                 tileElem.classList.add("tile");
-
+    
                 if (tileValue > 0) {
                     const checkerElem = document.createElement("div");
                     checkerElem.classList.add("checker");
@@ -28,13 +28,17 @@ export class Board {
                     tileElem.appendChild(checkerElem);
                 }
                 this.elem.appendChild(tileElem);
-                tileElem.addEventListener("click", () => { this.dropPiece(x) });
+    
+                //listeners for hover effect
+                tileElem.addEventListener("mouseenter", ()=>{ this.highlightColumn(x, true) });
+                tileElem.addEventListener("mouseleave", ()=>{ this.highlightColumn(x, false) });
+                tileElem.addEventListener("click", ()=>{ this.dropPiece(x) });
             }
         }
     }
   
     getTile(x, y){
-        if (x < 0 || y < 0 || x >= this.width || y >= this.height) return;
+        if (x<0 || y<0 || x>=this.width || y>=this.height) return;
         return this.tiles[y * this.width + x];
     }
   
@@ -57,10 +61,10 @@ export class Board {
   
     checkWin(column, row){
         const directions=[
-          [0, 1],  // Vertical
-          [1, 0],  // Horizontal
-          [1, 1],  // Diagonal (top-left to bottom-right)
-          [-1, 1] // Diagonal (top-right to bottom-left)
+            [0, 1],  // Vertical
+            [1, 0],  // Horizontal
+            [1, 1],  // Diagonal (top-left to bottom-right)
+            [-1, 1] // Diagonal (top-right to bottom-left)
         ];
         const currentPlayer = this.tiles[row * this.width + column];
       
@@ -78,7 +82,7 @@ export class Board {
             }
                 if (count >= 4) { return true } // Win condition
         }
-        return false; // No win condition found
+        return false; 
     }
       
     reset() {
@@ -91,5 +95,16 @@ export class Board {
         this.turnIndicator.textContent = `Player ${this.currentPlayer}'s Turn`;
         this.turnIndicator.classList.remove("player-1", "player-2");
         this.turnIndicator.classList.add(`player-${this.currentPlayer}`);
+    }
+
+    highlightColumn(column, highlight) {
+        const tiles = Array.from(this.elem.getElementsByClassName("tile"));
+        tiles.forEach((tile) => {
+            const tileX = parseInt(tile.dataset.x);
+            if (tileX === column) {
+                if (highlight) { tile.classList.add("highlight") }
+                else { tile.classList.remove("highlight") }
+            }
+        });
     }
 }
